@@ -19,11 +19,13 @@ struct ContentView: View {
                 }) {
                     Text("Зайти в класс")
                         .font(.title)
-                        .padding()
-                        .background(Color.black.opacity(0.7))
-                        .foregroundColor(.white)
+                        .foregroundColor(.white)                 // цвет текста
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(Color.black.opacity(0.5))   // полупрозрачный фон
                         .cornerRadius(10)
                 }
+                .buttonStyle(PlainButtonStyle()) // убирает дефолтный фон Button
             }
         }
     }
