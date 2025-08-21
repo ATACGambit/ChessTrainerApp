@@ -4,14 +4,14 @@ struct ContentView: View {
     @State private var inClass = false
     
     var body: some View {
-        if inClass {
-            ClassView(inClass: $inClass)
-        } else {
-            ZStack {
+        ZStack {
+            if inClass {
+                ClassView(inClass: $inClass)
+            } else {
                 Image("chess_background")
                     .resizable()
                     .scaledToFill()
-                    .overlay(Color.black.opacity(0.1)) // легкое затемнение
+                    .overlay(Color.black.opacity(0.1))
                     .ignoresSafeArea()
                 
                 Button(action: {
@@ -19,20 +19,14 @@ struct ContentView: View {
                 }) {
                     Text("Зайти в класс")
                         .font(.title)
-                        .foregroundColor(.white)                 // цвет текста
+                        .foregroundColor(.white)
                         .padding(.horizontal, 24)
                         .padding(.vertical, 12)
-                        .background(Color.black.opacity(0.5))   // полупрозрачный фон
+                        .background(Color.black.opacity(0.5))
                         .cornerRadius(10)
                 }
-                .buttonStyle(PlainButtonStyle()) // убирает дефолтный фон Button
+                .buttonStyle(PlainButtonStyle())
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
