@@ -23,9 +23,7 @@ struct ClassView: View {
                 currentScreen: $currentScreen
             ) {
                 if currentScreen == .classHome {
-                    ZStack(alignment: .topLeading) {
-                        Color.clear
-
+                    VStack(alignment: .leading, spacing: 12) {
                         // --- Кнопка "Доска" ---
                         Button(action: {
                             currentScreen = .board
@@ -40,23 +38,33 @@ struct ClassView: View {
                                     .foregroundColor(.black)
                             }
                         }
-                        .padding(.top, 8)
-                        .padding(.leading, 8)
 
-                        // --- Шаблон для будущих кнопок ---
-                        VStack(alignment: .leading, spacing: 8) {
-                            Button("Урок 1") {
-                                currentScreen = .lesson1
-                            }
-                            Button("Урок 2") {
-                                currentScreen = .lesson2
-                            }
-                            // Добавляйте новые кнопки по шаблону
+                        // --- Кнопка "Урок 1" ---
+                        Button(action: {
+                            currentScreen = .lesson1
+                        }) {
+                            Text("Урок 1")
+                                .font(.caption)
+                                .padding(6)
+                                .background(Color.white)
+                                .cornerRadius(5)
+                                .shadow(radius: 2)
                         }
-                        .padding(.top, 70) // отступ под кнопкой "Доска"
-                        .padding(.leading, 8)
+
+                        // --- Кнопка "Урок 2" ---
+                        Button(action: {
+                            currentScreen = .lesson2
+                        }) {
+                            Text("Урок 2")
+                                .font(.caption)
+                                .padding(6)
+                                .background(Color.white)
+                                .cornerRadius(5)
+                                .shadow(radius: 2)
+                        }
                     }
-                    .frame(width: layout.s2Frame.width, height: layout.s2Frame.height)
+                    .padding(8)
+                    .frame(width: layout.s2Frame.width, height: layout.s2Frame.height, alignment: .topLeading)
                     .position(x: layout.s2Frame.midX, y: layout.s2Frame.midY)
                 }
             }
