@@ -28,44 +28,18 @@ struct ClassContainer<Content: View>: View {
                         .scaledToFill()
                         .overlay(
                             // --- Горизонтальные кнопки ---
-                            HStack(spacing: 20) {
-                                Button(action: { currentScreen = .board }) {
-                                    VStack {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color.white)
-                                            .frame(width: 50, height: 50)
-                                            .shadow(radius: 2)
-                                        Text("Доска")
-                                            .font(.caption)
-                                            .foregroundColor(.black)
-                                    }
+                            HStack(spacing: 30) {
+                                appButton(title: "Доска", color: .white) {
+                                    currentScreen = .board
                                 }
-
-                                Button(action: { currentScreen = .lessons }) {
-                                    VStack {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color.white)
-                                            .frame(width: 50, height: 50)
-                                            .shadow(radius: 2)
-                                        Text("Уроки")
-                                            .font(.caption)
-                                            .foregroundColor(.black)
-                                    }
+                                appButton(title: "Уроки", color: .white) {
+                                    currentScreen = .lessons
                                 }
-
-                                Button(action: { currentScreen = .students }) {
-                                    VStack {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color.white)
-                                            .frame(width: 50, height: 50)
-                                            .shadow(radius: 2)
-                                        Text("Ученики")
-                                            .font(.caption)
-                                            .foregroundColor(.black)
-                                    }
+                                appButton(title: "Ученики", color: .white) {
+                                    currentScreen = .students
                                 }
                             }
-                            .padding(8)
+                            .padding(16)
                             .frame(width: layout.s2Frame.width, height: layout.s2Frame.height, alignment: .topLeading)
                         )
                 case .board:
@@ -94,6 +68,21 @@ struct ClassContainer<Content: View>: View {
 
             // --- Дополнительный контент внутри S2 ---
             content
+        }
+    }
+
+    // --- Вспомогательная функция для кнопок ---
+    private func appButton(title: String, color: Color, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(spacing: 5) {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(color)
+                    .frame(width: 60, height: 60)
+                    .shadow(radius: 3)
+                Text(title)
+                    .font(.caption)
+                    .foregroundColor(.black)
+            }
         }
     }
 
