@@ -4,9 +4,8 @@ import SwiftUI
 enum ScreenType {
     case classHome
     case board
-    case lesson1
-    case lesson2
-    // Добавляйте новые экраны здесь
+    case lessons
+    case students
 }
 
 struct ClassView: View {
@@ -25,9 +24,7 @@ struct ClassView: View {
                 if currentScreen == .classHome {
                     VStack(alignment: .leading, spacing: 12) {
                         // --- Кнопка "Доска" ---
-                        Button(action: {
-                            currentScreen = .board
-                        }) {
+                        Button(action: { currentScreen = .board }) {
                             VStack {
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(Color.white)
@@ -39,11 +36,9 @@ struct ClassView: View {
                             }
                         }
 
-                        // --- Кнопка "Урок 1" ---
-                        Button(action: {
-                            currentScreen = .lesson1
-                        }) {
-                            Text("Урок 1")
+                        // --- Кнопка "Уроки" ---
+                        Button(action: { currentScreen = .lessons }) {
+                            Text("Уроки")
                                 .font(.caption)
                                 .padding(6)
                                 .background(Color.white)
@@ -51,11 +46,9 @@ struct ClassView: View {
                                 .shadow(radius: 2)
                         }
 
-                        // --- Кнопка "Урок 2" ---
-                        Button(action: {
-                            currentScreen = .lesson2
-                        }) {
-                            Text("Урок 2")
+                        // --- Кнопка "Ученики" ---
+                        Button(action: { currentScreen = .students }) {
+                            Text("Ученики")
                                 .font(.caption)
                                 .padding(6)
                                 .background(Color.white)

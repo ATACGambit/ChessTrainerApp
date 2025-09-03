@@ -26,12 +26,54 @@ struct ClassContainer<Content: View>: View {
                     Image("chessWallpaper")
                         .resizable()
                         .scaledToFill()
+                        .overlay(
+                            // --- Горизонтальные кнопки ---
+                            HStack(spacing: 20) {
+                                Button(action: { currentScreen = .board }) {
+                                    VStack {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.white)
+                                            .frame(width: 50, height: 50)
+                                            .shadow(radius: 2)
+                                        Text("Доска")
+                                            .font(.caption)
+                                            .foregroundColor(.black)
+                                    }
+                                }
+
+                                Button(action: { currentScreen = .lessons }) {
+                                    VStack {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.white)
+                                            .frame(width: 50, height: 50)
+                                            .shadow(radius: 2)
+                                        Text("Уроки")
+                                            .font(.caption)
+                                            .foregroundColor(.black)
+                                    }
+                                }
+
+                                Button(action: { currentScreen = .students }) {
+                                    VStack {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.white)
+                                            .frame(width: 50, height: 50)
+                                            .shadow(radius: 2)
+                                        Text("Ученики")
+                                            .font(.caption)
+                                            .foregroundColor(.black)
+                                    }
+                                }
+                            }
+                            .padding(8)
+                            .frame(width: layout.s2Frame.width, height: layout.s2Frame.height, alignment: .topLeading)
+                        )
                 case .board:
                     BoardView()
-                case .lesson1:
-                    Color.green // заглушка для будущего урока 1
-                case .lesson2:
-                    Color.orange // заглушка для будущего урока 2
+                case .lessons:
+                    LessonsView()
+                case .students:
+                    StudentsView()
                 }
             }
             .frame(width: layout.s2Frame.width, height: layout.s2Frame.height)
@@ -55,7 +97,7 @@ struct ClassContainer<Content: View>: View {
         }
     }
 
-    // --- Отдельная функция для кнопки "Назад" ---
+    // --- Логика кнопки "Назад" ---
     private func handleBackButton() {
         switch currentScreen {
         case .classHome:
