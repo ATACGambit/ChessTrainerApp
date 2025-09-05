@@ -10,11 +10,12 @@ struct BackButton: View {
     var body: some View {
         Button(action: action) {
             RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(Color.white.opacity(0.25), lineWidth: 2) // только обводка
+                .stroke(Color.white.opacity(0.25), lineWidth: 2)
                 .frame(width: width, height: height)
-                .accessibilityLabel("Назад")
+                .contentShape(Rectangle()) // вся рамка кликабельна
         }
         .buttonStyle(PlainButtonStyle())
+        .accessibilityLabel("Назад")
     }
 }
 
@@ -25,8 +26,7 @@ struct BackButton_Previews: PreviewProvider {
             BackButton {
                 print("Назад нажата")
             }
-            .frame(width: 200, height: 300)
-            .position(x: 100, y: 150)
+            .position(x: 50, y: 200)
         }
         .previewLayout(.sizeThatFits)
         .padding()
