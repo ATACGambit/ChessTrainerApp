@@ -27,7 +27,6 @@ struct ClassContainer<Content: View>: View {
                         .resizable()
                         .scaledToFill()
                         .overlay(
-                            // --- Горизонтальные кнопки ---
                             HStack(spacing: 30) {
                                 appButton(title: "Доска", color: .white) {
                                     currentScreen = .board
@@ -54,9 +53,9 @@ struct ClassContainer<Content: View>: View {
             .clipShape(RoundedRectangle(cornerRadius: layout.s2CornerRadius))
             .position(x: layout.s2Frame.midX, y: layout.s2Frame.midY)
 
-            // --- S3: красная зона ---
+            // --- S3: черная зона ---
             Rectangle()
-                .fill(Color.red)
+                .fill(Color.black)
                 .frame(width: layout.s3Frame.width, height: layout.s3Frame.height)
                 .position(x: layout.s3Frame.midX, y: layout.s3Frame.midY)
 
@@ -71,7 +70,6 @@ struct ClassContainer<Content: View>: View {
         }
     }
 
-    // --- Вспомогательная функция для кнопок ---
     private func appButton(title: String, color: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: 5) {
@@ -86,13 +84,12 @@ struct ClassContainer<Content: View>: View {
         }
     }
 
-    // --- Логика кнопки "Назад" ---
     private func handleBackButton() {
         switch currentScreen {
         case .classHome:
-            inClass = false // возвращаемся в ContentView
+            inClass = false
         default:
-            currentScreen = .classHome // возвращаемся в ClassHome
+            currentScreen = .classHome
         }
     }
 }

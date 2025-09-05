@@ -5,9 +5,10 @@ struct BackButton: View {
     
     var body: some View {
         Button(action: action) {
-            RoundedRectangle(cornerRadius: 5)
-                .fill(Color.white.opacity(0.8))
-                .frame(width: 6, height: 50) // узкая вертикальная кнопка
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.black)
+                .frame(width: 15, height: 125) // увеличено в 2,5 раза
+                .shadow(color: .white.opacity(0.3), radius: 3, x: 0, y: 2) // небольшая тень для выделения на черном фоне
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -15,11 +16,14 @@ struct BackButton: View {
 
 struct BackButton_Previews: PreviewProvider {
     static var previews: some View {
-        BackButton {
-            print("Назад нажата")
+        ZStack {
+            Color.black.ignoresSafeArea()
+            BackButton {
+                print("Назад нажата")
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .previewLayout(.sizeThatFits)
         .padding()
-        .background(Color.red)
     }
 }
