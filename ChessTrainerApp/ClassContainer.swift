@@ -15,8 +15,8 @@ struct ClassContainer<Content: View>: View {
 
     var body: some View {
         ZStack {
-            // --- S1: серый фон ---
-            Color.gray
+            // --- S1: черный фон ---
+            Color.black
                 .ignoresSafeArea()
 
             // --- S2: экран гаджета ---
