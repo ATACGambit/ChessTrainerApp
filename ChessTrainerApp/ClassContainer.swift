@@ -15,11 +15,11 @@ struct ClassContainer<Content: View>: View {
 
     var body: some View {
         ZStack {
-            // --- S1: черный фон ---
+            // --- S1 ---
             Color.black
                 .ignoresSafeArea()
 
-            // --- S2: экран гаджета ---
+            // --- S2 ---
             ZStack {
                 switch currentScreen {
                 case .classHome:
@@ -28,13 +28,13 @@ struct ClassContainer<Content: View>: View {
                         .scaledToFill()
                         .overlay(
                             HStack(spacing: 30) {
-                                appButton(title: "Доска", color: .white) {
+                                appButton(title: "Доска", imageName: "icon_board") {
                                     currentScreen = .board
                                 }
-                                appButton(title: "Уроки", color: .white) {
+                                appButton(title: "Уроки", imageName: "icon_lessons") {
                                     currentScreen = .lessons
                                 }
-                                appButton(title: "Ученики", color: .white) {
+                                appButton(title: "Ученики", imageName: "icon_students") {
                                     currentScreen = .students
                                 }
                             }
@@ -53,28 +53,28 @@ struct ClassContainer<Content: View>: View {
             .clipShape(RoundedRectangle(cornerRadius: layout.s2CornerRadius))
             .position(x: layout.s2Frame.midX, y: layout.s2Frame.midY)
 
-            // --- S3: черная зона ---
+            // --- S3 ---
             Rectangle()
                 .fill(Color.black)
                 .frame(width: layout.s3Frame.width, height: layout.s3Frame.height)
                 .position(x: layout.s3Frame.midX, y: layout.s3Frame.midY)
 
-            // --- Кнопка "Назад" ---
+            // --- BackButton ---
             BackButton {
                 handleBackButton()
             }
             .position(x: layout.s3Frame.midX, y: layout.s3Frame.midY)
 
-            // --- Дополнительный контент внутри S2 ---
+            // --- Content ---
             content
         }
     }
 
-    private func appButton(title: String, color: Color, action: @escaping () -> Void) -> some View {
+    private func appButton(title: String, imageName: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: 5) {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(color)
+                Image(imageName)
+                    .resizable()
                     .frame(width: 60, height: 60)
                     .shadow(radius: 3)
                 Text(title)
