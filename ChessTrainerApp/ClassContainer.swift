@@ -15,11 +15,11 @@ struct ClassContainer<Content: View>: View {
 
     var body: some View {
         ZStack {
-            // --- S1: фон ---
+            // S1: фон
             Color.black
                 .ignoresSafeArea()
 
-            // --- S2: рабочая зона ---
+            // S2: рабочая зона
             ZStack {
                 switch currentScreen {
                 case .classHome:
@@ -53,24 +53,23 @@ struct ClassContainer<Content: View>: View {
             .clipShape(RoundedRectangle(cornerRadius: layout.s2CornerRadius))
             .position(x: layout.s2Frame.midX, y: layout.s2Frame.midY)
 
-            // --- S3: узкая черная зона ---
+            // S3: корпус гаджета с BackButton
             Rectangle()
                 .fill(Color.black)
                 .frame(width: layout.s3Frame.width, height: layout.s3Frame.height)
                 .position(x: layout.s3Frame.midX, y: layout.s3Frame.midY)
 
-            // --- BackButton ---
             BackButton {
                 handleBackButton()
             }
             .position(x: layout.s3Frame.midX, y: layout.s3Frame.midY)
 
-            // --- Дополнительный контент ---
+            // Дополнительный контент
             content
         }
     }
 
-    // MARK: - Обработка кнопки "Назад"
+    // Управление навигацией
     private func handleBackButton() {
         switch currentScreen {
         case .classHome:
@@ -81,7 +80,7 @@ struct ClassContainer<Content: View>: View {
     }
 }
 
-// MARK: - Кнопка с иконкой и подписью для S2
+// Кнопка S2 с иконкой и подписью
 struct AppButton: View {
     let title: String
     let systemImageName: String
