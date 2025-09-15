@@ -15,11 +15,11 @@ struct ClassContainer<Content: View>: View {
 
     var body: some View {
         ZStack {
-            // --- S1 ---
+            // --- S1: фон ---
             Color.black
                 .ignoresSafeArea()
 
-            // --- S2 ---
+            // --- S2: рабочая зона ---
             ZStack {
                 switch currentScreen {
                 case .classHome:
@@ -28,13 +28,13 @@ struct ClassContainer<Content: View>: View {
                         .scaledToFill()
                         .overlay(
                             HStack(spacing: 30) {
-                                appButton(title: "Доска", imageName: "icon_board") {
+                                AppButton(title: "Доска", systemImageName: "checkerboard.rectangle") {
                                     currentScreen = .board
                                 }
-                                appButton(title: "Уроки", imageName: "icon_lessons") {
+                                AppButton(title: "Уроки", systemImageName: "book.closed") {
                                     currentScreen = .lessons
                                 }
-                                appButton(title: "Ученики", imageName: "icon_students") {
+                                AppButton(title: "Ученики", systemImageName: "person.3.fill") {
                                     currentScreen = .students
                                 }
                             }
@@ -53,7 +53,7 @@ struct ClassContainer<Content: View>: View {
             .clipShape(RoundedRectangle(cornerRadius: layout.s2CornerRadius))
             .position(x: layout.s2Frame.midX, y: layout.s2Frame.midY)
 
-            // --- S3 ---
+            // --- S3: узкая черная зона ---
             Rectangle()
                 .fill(Color.black)
                 .frame(width: layout.s3Frame.width, height: layout.s3Frame.height)
@@ -65,31 +65,48 @@ struct ClassContainer<Content: View>: View {
             }
             .position(x: layout.s3Frame.midX, y: layout.s3Frame.midY)
 
-            // --- Content ---
+            // --- Дополнительный контент ---
             content
         }
     }
 
-    private func appButton(title: String, imageName: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: 5) {
-                Image(imageName)
-                    .resizable()
-                    .frame(width: 60, height: 60)
-                    .shadow(radius: 3)
-                Text(title)
-                    .font(.caption)
-                    .foregroundColor(.black)
-            }
-        }
-    }
-
+    // MARK: - Обработка кнопки "Назад"
     private func handleBackButton() {
         switch currentScreen {
         case .classHome:
             inClass = false
         default:
             currentScreen = .classHome
+        }
+    }
+}
+
+// MARK: - Кнопка с иконкой и подписью для S2
+struct AppButton: View {
+    let title: String
+    let systemImageName: String
+    let action: () -> Void
+
+    @State private var isHovering = false
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 6) {
+                Image(systemName: systemImageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 60)
+                    .foregroundColor(isHovering ? .blue : .black)
+                Text(title)
+                    .font(.caption)
+                    .foregroundColor(isHovering ? .blue : .black)
+            }
+            .padding(4)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .contentShape(Rectangle())
+        .onHover { hovering in
+            isHovering = hovering
         }
     }
 }
