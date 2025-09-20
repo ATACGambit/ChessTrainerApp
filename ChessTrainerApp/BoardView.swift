@@ -67,7 +67,7 @@ struct BoardView: View {
     }
     
     private func columnLetter(_ col: Int) -> String {
-        let letters = ["a","b","c","d","e","f","g","h"]
+        let letters = ["A","B","C","D","E","F","G","H"]
         return letters[col - 1]
     }
 }
