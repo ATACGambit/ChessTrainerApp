@@ -63,6 +63,7 @@ struct BoardView: View {
             }
             .frame(width: boardSize + squareSize, height: boardSize + squareSize)
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+            .background(Color.white) // 👈 белый фон для всего BoardView
         }
     }
     
