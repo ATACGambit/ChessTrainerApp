@@ -25,13 +25,13 @@ struct BoardView: View {
                     .frame(width: squareSize2, height: squareSize2)
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 
-                // Слой 3 — шахматная доска
+                // Слой 3 — шахматная доска (А1 черное)
                 VStack(spacing: 0) {
                     ForEach(rows, id: \.self) { row in
                         HStack(spacing: 0) {
                             ForEach(columns, id: \.self) { col in
                                 Rectangle()
-                                    .fill((row + col) % 2 == 0 ? Color.white : Color.black)
+                                    .fill((row + col) % 2 == 1 ? Color.white : Color.black)
                             }
                         }
                     }
