@@ -17,7 +17,7 @@ struct BoardView: View {
                 let centerX = geometry.size.width / 2
                 let centerY = geometry.size.height / 2
                 Rectangle()
-                    .fill(Color.brown)
+                    .fill(Color(red: 64/255, green: 64/255, blue: 64/255))
                     .frame(width: squareSize1, height: squareSize1)
                     .position(x: centerX, y: centerY)
                 
@@ -34,7 +34,8 @@ struct BoardView: View {
                         HStack(spacing: 0) {
                             ForEach(columns, id: \.self) { col in
                                 Rectangle()
-                                    .fill((row + col) % 2 == 1 ? Color.white : Color.black)
+                                    .fill((row + col) % 2 == 1 ? Color(red: 236/255, green: 218/255, blue: 185/255) : Color(red: 174/255, green: 138/255, blue: 104/255))
+
                             }
                         }
                     }
