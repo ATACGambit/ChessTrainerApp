@@ -1,53 +1,45 @@
 import SwiftUI
 
 struct BoardView: View {
-    let cornerRadius: CGFloat = 20
-    let rows = Array(1...8).reversed()   // для вертикальной нумерации 8-1
-    let columns = Array(1...8)           // горизонтальная A-H
-    let borderThickness: CGFloat = 20
-
+    let rows = Array(1...8).reversed()
+    let columns = Array(1...8)
+    
     var body: some View {
-        GeometryReader { geo in
-            let s2Width = geo.size.width
-            let s2Height = geo.size.height
-            let sideP2 = min(s2Width, s2Height)
-
+        GeometryReader { geometry in
             ZStack {
-                // S2 полностью белая
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(Color.white)
-
-                // Центральный квадрат P2
+                // Слой 0 — белая заливка S2
+                Color.white
+                    .ignoresSafeArea()
+                
+                // Слой 1 — коричневый квадрат
+                let squareSize1 = geometry.size.height
                 Rectangle()
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(width: sideP2, height: sideP2)
-                    .overlay(
-                        // P2_border + P2_board
-                        ZStack {
-                            // Рамка для координат
-                            RoundedRectangle(cornerRadius: 0)
-                                .stroke(Color.black, lineWidth: borderThickness)
-                            
-                            // Шахматная доска внутри рамки
-                            let boardSize = sideP2 - 2 * borderThickness
-                            
-                            VStack(spacing: 0) {
-                                ForEach(rows, id: \.self) { row in
-                                    HStack(spacing: 0) {
-                                        ForEach(columns, id: \.self) { col in
-                                            Rectangle()
-                                                .fill((row + col) % 2 == 0 ? Color.white : Color.black)
-                                                .frame(width: boardSize / 8, height: boardSize / 8)
-                                        }
-                                    }
-                                }
+                    .fill(Color.brown)
+                    .frame(width: squareSize1, height: squareSize1)
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                
+                // Слой 2 — серый квадрат
+                let squareSize2 = geometry.size.height * 8 / 9
+                Rectangle()
+                    .fill(Color.gray)
+                    .frame(width: squareSize2, height: squareSize2)
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                
+                // Слой 3 — шахматная доска
+                VStack(spacing: 0) {
+                    ForEach(rows, id: \.self) { row in
+                        HStack(spacing: 0) {
+                            ForEach(columns, id: \.self) { col in
+                                Rectangle()
+                                    .fill((row + col) % 2 == 0 ? Color.white : Color.black)
                             }
-                            .frame(width: boardSize, height: boardSize)
                         }
-                        .padding(borderThickness / 2)
-                    )
+                    }
+                }
+                .frame(width: squareSize2, height: squareSize2)
+                .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
-            .frame(width: s2Width, height: s2Height)
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
 }
@@ -55,8 +47,6 @@ struct BoardView: View {
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
         BoardView()
-            .frame(width: 600, height: 600)
-            .padding()
-            .previewLayout(.sizeThatFits)
+            .frame(width: 400, height: 400)
     }
 }
