@@ -21,21 +21,16 @@ struct BoardView: View {
                     .frame(width: squareSize1, height: squareSize1)
                     .position(x: centerX, y: centerY)
                 
-                // Слой 2 — серый квадрат
-                let squareSize2 = geometry.size.height * 8 / 9
-                Rectangle()
-                    .fill(Color.gray)
-                    .frame(width: squareSize2, height: squareSize2)
-                    .position(x: centerX, y: centerY)
-                
                 // Слой 3 — шахматная доска (А1 черное)
+                let squareSize2 = geometry.size.height * 8 / 9
                 VStack(spacing: 0) {
                     ForEach(rows, id: \.self) { row in
                         HStack(spacing: 0) {
                             ForEach(columns, id: \.self) { col in
                                 Rectangle()
-                                    .fill((row + col) % 2 == 1 ? Color(red: 236/255, green: 218/255, blue: 185/255) : Color(red: 174/255, green: 138/255, blue: 104/255))
-
+                                    .fill((row + col) % 2 == 1
+                                          ? Color(red: 236/255, green: 218/255, blue: 185/255)
+                                          : Color(red: 174/255, green: 138/255, blue: 104/255))
                             }
                         }
                     }
