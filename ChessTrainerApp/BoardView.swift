@@ -21,7 +21,7 @@ struct BoardView: View {
                     .frame(width: squareSize1, height: squareSize1)
                     .position(x: centerX, y: centerY)
                 
-                // Слой 3 — шахматная доска (А1 черное)
+                // Слой 2 — шахматная доска (А1 черное)
                 let squareSize2 = geometry.size.height * 8 / 9
                 VStack(spacing: 0) {
                     ForEach(rows, id: \.self) { row in
@@ -38,7 +38,7 @@ struct BoardView: View {
                 .frame(width: squareSize2, height: squareSize2)
                 .position(x: centerX, y: centerY)
                 
-                // Слой 4 — координаты
+                // Слой 3 — координаты
                 let borderSize = (squareSize1 - squareSize2) / 2
                 // Верхняя и нижняя буквы
                 HStack(spacing: 0) {
