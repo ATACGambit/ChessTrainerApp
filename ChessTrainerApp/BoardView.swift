@@ -75,6 +75,24 @@ struct BoardView: View {
                     }
                 }
                 .position(x: centerX + squareSize2 / 2 + borderSize / 2, y: centerY) // справа
+                
+                // Слой 4 — пустая панель справа от доски
+                Rectangle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(width: squareSize2 / 3, height: squareSize1)
+                    .position(
+                        x: centerX + squareSize2 / 2 + (squareSize2 / 6) + borderSize,
+                        y: centerY
+                    )
+                
+                // Слой 5 — пустая панель слева от доски
+                Rectangle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(width: squareSize2 / 3, height: squareSize1)
+                    .position(
+                        x: centerX - squareSize2 / 2 - (squareSize2 / 6) - borderSize,
+                        y: centerY
+                    )
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
         }
@@ -84,6 +102,6 @@ struct BoardView: View {
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
         BoardView()
-            .frame(width: 400, height: 400)
+            .frame(width: 800, height: 400)
     }
 }
