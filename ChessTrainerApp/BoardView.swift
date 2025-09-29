@@ -76,15 +76,27 @@ struct BoardView: View {
                 }
                 .position(x: centerX + squareSize2 / 2 + borderSize / 2, y: centerY) // справа
                 
-                // Слой 4 — пустая панель справа от доски
-                Rectangle()
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(width: squareSize2 / 3, height: squareSize1)
-                    .position(
-                        x: centerX + squareSize2 / 2 + (squareSize2 / 6) + borderSize,
-                        y: centerY
-                    )
-                
+                // Слой 4 — правая панель 8x2 (16 ячеек)
+                let panelWidth = squareSize2 / 3
+                let panelHeight = squareSize1 // высота = S2
+                VStack(spacing: 0) {
+                    ForEach(0..<8) { _ in
+                        HStack(spacing: 0) {
+                            ForEach(0..<2) { _ in
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.4)) // фон ячейки
+                                    .border(Color.white, width: 1) // рамка ячейки
+                                    .frame(width: panelWidth / 2, height: panelHeight / 8)
+                            }
+                        }
+                    }
+                }
+                .frame(width: panelWidth, height: panelHeight)
+                .position(
+                    x: centerX + squareSize2 / 2 + (panelWidth / 2) + borderSize,
+                    y: centerY
+                )
+
                 // Слой 5 — пустая панель слева от доски
                 Rectangle()
                     .fill(Color.gray.opacity(0.3))
