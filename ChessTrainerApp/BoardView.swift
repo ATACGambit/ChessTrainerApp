@@ -76,37 +76,53 @@ struct BoardView: View {
                 }
                 .position(x: centerX + squareSize2 / 2 + borderSize / 2, y: centerY) // справа
                 
-                // Слой 4 — правая панель 8x2 (16 ячеек)
+                // Слой 4 — правая панель с 16 ячейками
                 let panelWidth = squareSize2 / 3
-                let panelHeight = squareSize1 // высота = S2
+                let panelHeight = squareSize2
                 VStack(spacing: 0) {
-                    ForEach(0..<8) { _ in
+                    ForEach(0..<8) { row in
                         HStack(spacing: 0) {
-                            ForEach(0..<2) { _ in
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.4)) // фон ячейки
-                                    .border(Color.white, width: 1) // рамка ячейки
-                                    .frame(width: panelWidth / 2, height: panelHeight / 8)
+                            ForEach(0..<2) { col in
+                                let index = row * 2 + col + 1
+                                ZStack {
+                                    Rectangle()
+                                        .stroke(Color.black, lineWidth: 1)
+                                        .background(Color.white)
+                                    
+                                    Text(cellContent(for: index))
+                                        .font(.system(size: panelWidth / 3))
+                                }
+                                .frame(width: panelWidth / 2, height: panelHeight / 8)
                             }
                         }
                     }
                 }
-                .frame(width: panelWidth, height: panelHeight)
-                .position(
-                    x: centerX + squareSize2 / 2 + (panelWidth / 2) + borderSize,
-                    y: centerY
-                )
-
-                // Слой 5 — пустая панель слева от доски
-                Rectangle()
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(width: squareSize2 / 3, height: squareSize1)
-                    .position(
-                        x: centerX - squareSize2 / 2 - (squareSize2 / 6) - borderSize,
-                        y: centerY
-                    )
+                .position(x: centerX + squareSize2/2 + panelWidth/2 + borderSize, y: centerY)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+    }
+    
+    // Контент для ячеек панели
+    func cellContent(for index: Int) -> String {
+        switch index {
+        case 1: return "♙" // белая пешка
+        case 2: return "♟" // черная пешка
+        case 3: return "♘" // белый конь
+        case 4: return "♞" // черный конь
+        case 5: return "♗" // белый слон
+        case 6: return "♝" // черный слон
+        case 7: return "♖" // белая ладья
+        case 8: return "♜" // черная ладья
+        case 9: return "♕" // белый ферзь
+        case 10: return "♛" // черный ферзь
+        case 11: return "♔" // белый король
+        case 12: return "♚" // черный король
+        case 13: return "●" // круг
+        case 14: return "■" // квадрат
+        case 15: return "▲" // треугольник
+        case 16: return "◆" // ромб
+        default: return ""
         }
     }
 }
@@ -114,6 +130,6 @@ struct BoardView: View {
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
         BoardView()
-            .frame(width: 800, height: 400)
+            .frame(width: 600, height: 400)
     }
 }
