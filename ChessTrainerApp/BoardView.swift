@@ -41,7 +41,7 @@ struct BoardView: View {
                     ForEach(letters, id: \.self) { letter in
                         Text(letter)
                             .frame(width: cellSize, height: borderWidth)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                     }
                 }
                 .position(x: size/2, y: borderWidth/2)
@@ -51,7 +51,7 @@ struct BoardView: View {
                     ForEach(letters, id: \.self) { letter in
                         Text(letter)
                             .frame(width: cellSize, height: borderWidth)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                     }
                 }
                 .position(x: size/2, y: size - borderWidth/2)
@@ -61,7 +61,7 @@ struct BoardView: View {
                     ForEach(rows, id: \.self) { row in
                         Text("\(row)")
                             .frame(width: borderWidth, height: cellSize)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                     }
                 }
                 .position(x: borderWidth/2, y: size/2)
@@ -71,7 +71,7 @@ struct BoardView: View {
                     ForEach(rows, id: \.self) { row in
                         Text("\(row)")
                             .frame(width: borderWidth, height: cellSize)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                     }
                 }
                 .position(x: size - borderWidth/2, y: size/2)
