@@ -5,25 +5,33 @@ struct BoardContainer: View {
     
     var body: some View {
         GeometryReader { geometry in
-            let layout = BoardLayoutModel(size: geometry.size)
+            let layout = BoardLayoutModel(containerSize: geometry.size)
             
-            HStack(spacing: 0) {
+            ZStack {
                 // Левая панель
                 LeftPanelView()
-                    .frame(width: layout.leftPanelWidth, height: geometry.size.height)
-                    .background(Color.red.opacity(0.3))
+                    .frame(width: layout.leftPanelFrame.width,
+                           height: layout.leftPanelFrame.height)
+                    .position(x: layout.leftPanelFrame.midX,
+                              y: layout.leftPanelFrame.midY)
+                    .background(Color.red.opacity(0.3)) // временно для наглядности
                 
-                // Центральная доска
+                // Доска
                 BoardView()
-                    .frame(width: layout.boardSize, height: layout.boardSize)
-                    .background(Color.blue.opacity(0.3))
+                    .frame(width: layout.boardFrame.width,
+                           height: layout.boardFrame.height)
+                    .position(x: layout.boardFrame.midX,
+                              y: layout.boardFrame.midY)
+                    .background(Color.blue.opacity(0.3)) // временно для наглядности
                 
                 // Правая панель
                 RightPanelView()
-                    .frame(width: layout.rightPanelWidth, height: geometry.size.height)
-                    .background(Color.green.opacity(0.3))
+                    .frame(width: layout.rightPanelFrame.width,
+                           height: layout.rightPanelFrame.height)
+                    .position(x: layout.rightPanelFrame.midX,
+                              y: layout.rightPanelFrame.midY)
+                    .background(Color.green.opacity(0.3)) // временно для наглядности
             }
-            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
 }

@@ -1,20 +1,40 @@
 import SwiftUI
 
 struct BoardLayoutModel {
-    let size: CGSize
+    let containerSize: CGSize
     
-    // Левая панель
-    var leftPanelWidth: CGFloat {
-        size.width * 0.2   // 20% ширины
-    }
-    
-    // Центральная доска (квадрат)
+    // Размер квадрата доски
     var boardSize: CGFloat {
-        min(size.width * 0.6, size.height * 0.8) // пример: 60% ширины, ограничение по высоте
+        min(containerSize.width, containerSize.height) * 0.8
     }
     
-    // Правая панель
-    var rightPanelWidth: CGFloat {
-        size.width * 0.2   // 20% ширины
+    // Фрейм доски (по центру контейнера)
+    var boardFrame: CGRect {
+        CGRect(
+            x: (containerSize.width - boardSize) / 2,
+            y: (containerSize.height - boardSize) / 2,
+            width: boardSize,
+            height: boardSize
+        )
+    }
+    
+    // Левая панель (30% ширины доски, примыкает к доске)
+    var leftPanelFrame: CGRect {
+        CGRect(
+            x: boardFrame.minX - boardSize * 0.3,
+            y: boardFrame.minY,
+            width: boardSize * 0.3,
+            height: boardSize
+        )
+    }
+    
+    // Правая панель (30% ширины доски, примыкает к доске)
+    var rightPanelFrame: CGRect {
+        CGRect(
+            x: boardFrame.maxX,
+            y: boardFrame.minY,
+            width: boardSize * 0.3,
+            height: boardSize
+        )
     }
 }
