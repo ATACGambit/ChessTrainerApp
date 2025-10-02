@@ -42,7 +42,7 @@ struct ClassContainer<Content: View>: View {
                             .frame(width: layout.s2Frame.width, height: layout.s2Frame.height, alignment: .topLeading)
                         )
                 case .board:
-                    BoardView()
+                    BoardContainer()
                 case .lessons:
                     LessonsView()
                 case .students:
