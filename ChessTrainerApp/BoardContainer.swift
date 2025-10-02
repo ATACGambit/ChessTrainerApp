@@ -16,7 +16,6 @@ struct BoardContainer: View {
                            height: layout.leftPanelFrame.height)
                     .position(x: layout.leftPanelFrame.midX,
                               y: layout.leftPanelFrame.midY)
-                    .background(Color.red.opacity(0.3)) // временно для наглядности
                 
                 // Доска
                 BoardView()
@@ -24,7 +23,6 @@ struct BoardContainer: View {
                            height: layout.boardFrame.height)
                     .position(x: layout.boardFrame.midX,
                               y: layout.boardFrame.midY)
-                    .background(Color.blue.opacity(0.3)) // временно для наглядности
                 
                 // Правая панель
                 RightPanelView()
@@ -32,7 +30,6 @@ struct BoardContainer: View {
                            height: layout.rightPanelFrame.height)
                     .position(x: layout.rightPanelFrame.midX,
                               y: layout.rightPanelFrame.midY)
-                    .background(Color.green.opacity(0.3)) // временно для наглядности
             }
         }
     }
