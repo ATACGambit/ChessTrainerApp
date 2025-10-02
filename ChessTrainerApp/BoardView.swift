@@ -16,7 +16,7 @@ struct BoardView: View {
                 
                 // рамка для координат
                 Rectangle()
-                    .fill(Color.gray.opacity(0.1))
+                    .fill(Color(red: 64/255, green: 64/255, blue: 64/255))
                     .frame(width: size, height: size)
                 
                 // клетки доски внутри рамки
