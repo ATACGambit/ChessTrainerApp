@@ -8,6 +8,8 @@ struct BoardContainer: View {
             let layout = BoardLayoutModel(containerSize: geometry.size)
             
             ZStack {
+                Color.white.ignoresSafeArea() // фон экрана
+                
                 // Левая панель
                 LeftPanelView()
                     .frame(width: layout.leftPanelFrame.width,
