@@ -27,7 +27,7 @@ struct LeftPanelView: View {
                         }) {
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(buttonColors[0])
-                                .frame(width: 0.4 * cellH, height: 0.5 * cellH)
+                                .frame(width: 0.6 * cellH * 1.2, height: 0.3 * cellH)
                         }
                         .position(x: cellWidth * 0.25, y: cellH * 0.5)
 
@@ -37,9 +37,10 @@ struct LeftPanelView: View {
                         }) {
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(buttonColors[1])
-                                .frame(width: 0.4 * cellH, height: 0.5 * cellH)
+                                .frame(width: 0.6 * cellH * 1.2, height: 0.3 * cellH)
                         }
                         .position(x: cellWidth * 0.75, y: cellH * 0.5)
+
                     }
                     .frame(height: cellHeight)
 
