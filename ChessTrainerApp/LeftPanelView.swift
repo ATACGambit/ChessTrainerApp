@@ -2,7 +2,10 @@ import SwiftUI
 
 struct LeftPanelView: View {
     // Цвета кнопок можно менять здесь
-    @State private var buttonColors: [Color] = Array(repeating: .blue, count: 9)
+    @State private var buttonColors: [Color] = Array(
+        repeating: Color(red: 86/255, green: 177/255, blue: 193/255),
+        count: 9
+    )
 
     var body: some View {
         GeometryReader { geometry in
