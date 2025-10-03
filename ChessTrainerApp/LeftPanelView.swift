@@ -1,29 +1,63 @@
 import SwiftUI
 
 struct LeftPanelView: View {
+    // Цвета кнопок можно менять здесь
+    @State private var buttonColors: [Color] = Array(repeating: .blue, count: 9)
+
     var body: some View {
         GeometryReader { geometry in
-            let cellHeight = geometry.size.height / 8
-            VStack(spacing: 0) {
-                // Ячейка 1 - пустая
+            let panelWidth = geometry.size.width
+            let panelHeight = geometry.size.height
+            let cellHeight = panelHeight / 8
+
+            ZStack {
+                // Обводка панели
                 Rectangle()
                     .stroke(Color.black, lineWidth: 1)
-                    .background(Color.clear)
-                    .frame(height: cellHeight)
-                
-                // Ячейки 2-8 с одной кнопкой в каждой
-                ForEach(2...8, id: \.self) { _ in
+                    .frame(width: panelWidth, height: panelHeight)
+
+                VStack(spacing: 0) {
+                    // Ячейка 1 с кнопками 1.1 и 1.2
                     ZStack {
-                        Rectangle()
-                            .stroke(Color.black, lineWidth: 1)
-                            .background(Color.clear)
-                        Button(action: {}) {
-                            Rectangle()
-                                .foregroundColor(.clear)
+                        let cellWidth = panelWidth
+                        let cellH = cellHeight
+                        // кнопка 1.1
+                        Button(action: {
+                            // обработка кнопки 1.1
+                        }) {
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(buttonColors[0])
+                                .frame(width: 0.4 * cellH, height: 0.5 * cellH)
                         }
-                        .aspectRatio(1, contentMode: .fit)
+                        .position(x: cellWidth * 0.25, y: cellH * 0.5)
+
+                        // кнопка 1.2
+                        Button(action: {
+                            // обработка кнопки 1.2
+                        }) {
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(buttonColors[1])
+                                .frame(width: 0.4 * cellH, height: 0.5 * cellH)
+                        }
+                        .position(x: cellWidth * 0.75, y: cellH * 0.5)
                     }
                     .frame(height: cellHeight)
+
+                    // Ячейки 2–8 с одной кнопкой
+                    ForEach(2...8, id: \.self) { index in
+                        ZStack {
+                            let cellH = cellHeight
+                            Button(action: {
+                                // обработка кнопки index
+                            }) {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(buttonColors[index])
+                                    .frame(width: 0.9 * cellH, height: 0.9 * cellH)
+                            }
+                            .position(x: panelWidth * 0.5, y: cellH * 0.5)
+                        }
+                        .frame(height: cellHeight)
+                    }
                 }
             }
         }
