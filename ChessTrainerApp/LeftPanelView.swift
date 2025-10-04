@@ -32,6 +32,7 @@ struct LeftPanelView: View {
                                 .fill(buttonColors[0])
                                 .frame(width: 0.6 * cellH * 1.2, height: 0.3 * cellH)
                         }
+                        .buttonStyle(PlainButtonStyle())
                         .position(x: cellWidth * 0.25, y: cellH * 0.5)
 
                         // кнопка 1.2
@@ -42,6 +43,7 @@ struct LeftPanelView: View {
                                 .fill(buttonColors[1])
                                 .frame(width: 0.6 * cellH * 1.2, height: 0.3 * cellH)
                         }
+                        .buttonStyle(PlainButtonStyle())
                         .position(x: cellWidth * 0.75, y: cellH * 0.5)
 
                     }
@@ -58,6 +60,7 @@ struct LeftPanelView: View {
                                     .fill(buttonColors[index])
                                     .frame(width: 0.9 * cellH, height: 0.9 * cellH)
                             }
+                            .buttonStyle(PlainButtonStyle())
                             .position(x: panelWidth * 0.5, y: cellH * 0.5)
                         }
                         .frame(height: cellHeight)
