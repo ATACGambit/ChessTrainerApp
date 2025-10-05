@@ -1,4 +1,6 @@
-import SwiftUI
+// BoardLayoutModel.swift
+import Foundation
+import CoreGraphics
 
 struct BoardLayoutModel {
     let containerSize: CGSize
@@ -6,6 +8,11 @@ struct BoardLayoutModel {
     // Размер квадрата доски
     var boardSize: CGFloat {
         min(containerSize.width, containerSize.height) * 0.8
+    }
+    
+    // Размер одной ячейки (используется для TopPanel и для размеров ячеек левой панели)
+    var cellSize: CGFloat {
+        boardSize / 8.0
     }
     
     // Фрейм доски (по центру контейнера)
@@ -18,7 +25,17 @@ struct BoardLayoutModel {
         )
     }
     
-    // Левая панель (30% ширины доски, примыкает к доске)
+    // Верхняя маленькая панель (квадрат равный одной ячейке, прижат к верху доски по центру)
+    var topPanelFrame: CGRect {
+        CGRect(
+            x: boardFrame.midX - cellSize / 2,
+            y: boardFrame.minY - cellSize,
+            width: cellSize,
+            height: cellSize
+        )
+    }
+    
+    // Левая панель (20% ширины доски, примыкает к доске)
     var leftPanelFrame: CGRect {
         CGRect(
             x: boardFrame.minX - boardSize * 0.2,
