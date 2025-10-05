@@ -4,54 +4,77 @@ import CoreGraphics
 
 struct BoardLayoutModel {
     let containerSize: CGSize
-    
-    // Размер квадрата доски
-    var boardSize: CGFloat {
+
+    // Параметры (можно менять)
+    private let leftRatio: CGFloat = 0.2   // ширина левой панели = leftRatio * boardSize
+    private let rightRatio: CGFloat = 0.3  // ширина правой панели = rightRatio * boardSize
+    private let leftMargin: CGFloat = 0.0  // отступ слева (если нужен)
+
+    // --- базовый (желаемый) размер доски (не увеличиваем выше этого) ---
+    private var baseBoardSize: CGFloat {
         min(containerSize.width, containerSize.height) * 0.8
     }
-    
-    // Размер одной ячейки (используется для TopPanel и для размеров ячеек левой панели)
-    var cellSize: CGFloat {
-        boardSize / 8.0
+
+    // --- максимальный boardSize по ширине с учётом панелей (решение b * (1+α+β) <= W) ---
+    private var maxBoardByWidth: CGFloat {
+        containerSize.width / (1.0 + leftRatio + rightRatio)
     }
-    
-    // Фрейм доски (по центру контейнера)
+
+    // Итоговый размер доски: не больше base, и не больше места по ширине
+    var boardSize: CGFloat {
+        min(baseBoardSize, maxBoardByWidth)
+    }
+
+    // Рамка/бордюр вокруг доски (согласовано с BoardView: borderWidth = size/18)
+    var borderWidth: CGFloat { boardSize / 18.0 }
+
+    // Внутренняя игровая площадь (без рамки)
+    var innerBoardSize: CGFloat { max(0, boardSize - 2 * borderWidth) }
+
+    // Размер клетки
+    var cellSize: CGFloat { innerBoardSize / 8.0 }
+
+    // Ширины боковых панелей (взависимости от итогового boardSize)
+    var leftPanelWidth: CGFloat { boardSize * leftRatio }
+    var rightPanelWidth: CGFloat { boardSize * rightRatio }
+
+    // Расположение доски: ставим её так, чтобы левая панель была видна (x = leftMargin + leftPanelWidth)
     var boardFrame: CGRect {
         CGRect(
-            x: (containerSize.width - boardSize) / 2,
-            y: (containerSize.height - boardSize) / 2,
+            x: leftMargin + leftPanelWidth,
+            y: (containerSize.height - boardSize) / 2.0,
             width: boardSize,
             height: boardSize
         )
     }
-    
-    // Верхняя маленькая панель (квадрат равный одной ячейке, прижат к верху доски по центру)
-    var topPanelFrame: CGRect {
-        CGRect(
-            x: boardFrame.midX - cellSize / 2,
-            y: boardFrame.minY - cellSize,
-            width: cellSize,
-            height: cellSize
-        )
-    }
-    
-    // Левая панель (20% ширины доски, примыкает к доске)
+
+    // Левая панель — прижата к leftMargin (обычно 0)
     var leftPanelFrame: CGRect {
         CGRect(
-            x: boardFrame.minX - boardSize * 0.2,
+            x: leftMargin,
             y: boardFrame.minY,
-            width: boardSize * 0.2,
+            width: leftPanelWidth,
             height: boardSize
         )
     }
-    
-    // Правая панель (30% ширины доски, примыкает к доске)
+
+    // Правая панель — сразу после правого края доски
     var rightPanelFrame: CGRect {
         CGRect(
             x: boardFrame.maxX,
             y: boardFrame.minY,
-            width: boardSize * 0.3,
+            width: rightPanelWidth,
             height: boardSize
+        )
+    }
+
+    // Верхняя панель — по центру над доской, размер = одна клетка (inner)
+    var topPanelFrame: CGRect {
+        CGRect(
+            x: boardFrame.midX - cellSize / 2.0,
+            y: boardFrame.minY - cellSize,
+            width: cellSize,
+            height: cellSize
         )
     }
 }
