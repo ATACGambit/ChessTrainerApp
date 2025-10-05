@@ -29,7 +29,7 @@ struct TopPanelView: View {
                         .frame(width: 0.6 * cellH * 1.3, height: 0.3 * cellH * 1.3)
                 }
                 .buttonStyle(PlainButtonStyle()) // убирает стандартную подсветку/обводку
-                .position(x: cellWidth * 0.35, y: cellH * 0.5) // ближе к центру
+                .position(x: cellWidth * 0.40, y: cellH * 0.5) // ближе к центру
 
                 // кнопка 1.2
                 Button(action: {}) {
@@ -42,7 +42,7 @@ struct TopPanelView: View {
                         .frame(width: 0.6 * cellH * 1.3, height: 0.3 * cellH * 1.3)
                 }
                 .buttonStyle(PlainButtonStyle())
-                .position(x: cellWidth * 0.65, y: cellH * 0.5)
+                .position(x: cellWidth * 0.6, y: cellH * 0.5)
             }
         }
     }

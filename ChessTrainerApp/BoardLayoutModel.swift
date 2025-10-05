@@ -21,9 +21,9 @@ struct BoardLayoutModel {
     // Левая панель (30% ширины доски, примыкает к доске)
     var leftPanelFrame: CGRect {
         CGRect(
-            x: boardFrame.minX - boardSize * 0.3,
+            x: boardFrame.minX - boardSize * 0.2,
             y: boardFrame.minY,
-            width: boardSize * 0.3,
+            width: boardSize * 0.2,
             height: boardSize
         )
     }
