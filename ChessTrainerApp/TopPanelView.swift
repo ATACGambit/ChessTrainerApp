@@ -13,39 +13,43 @@ struct TopPanelView: View {
             let panelHeight = geometry.size.height
 
             ZStack {
-                // Прозрачный фон панели (без обводки)
-                Color.clear
+                Color.clear // Прозрачный фон панели
 
-                // Две кнопки — 1.1 и 1.2 (точная копия ячейки 1 из LeftPanelView)
                 let cellWidth = panelWidth
                 let cellH = panelHeight
 
-                // кнопка 1.1
+                // Кнопка 1.1
                 Button(action: {
                     // обработка кнопки 1.1
                 }) {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(buttonColors[0])
+                        .frame(width: 0.6 * cellH * 1.2 * 1.3, height: 0.3 * cellH * 1.3) // увеличено на 30%
                         .overlay(
                             Image(systemName: "arrow.left")
                                 .foregroundColor(.white)
                         )
-                        .frame(width: 0.6 * cellH * 1.2, height: 0.3 * cellH)
+                        .compositingGroup()
+                        .drawingGroup()
                 }
+                .buttonStyle(.plain)
                 .position(x: cellWidth * 0.25, y: cellH * 0.5)
 
-                // кнопка 1.2
+                // Кнопка 1.2
                 Button(action: {
                     // обработка кнопки 1.2
                 }) {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(buttonColors[1])
+                        .frame(width: 0.6 * cellH * 1.2 * 1.3, height: 0.3 * cellH * 1.3) // увеличено на 30%
                         .overlay(
                             Image(systemName: "arrow.right")
                                 .foregroundColor(.white)
                         )
-                        .frame(width: 0.6 * cellH * 1.2, height: 0.3 * cellH)
+                        .compositingGroup()
+                        .drawingGroup()
                 }
+                .buttonStyle(.plain)
                 .position(x: cellWidth * 0.75, y: cellH * 0.5)
             }
         }
