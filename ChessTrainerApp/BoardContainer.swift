@@ -17,6 +17,13 @@ struct BoardContainer: View {
                     .position(x: layout.leftPanelFrame.midX,
                               y: layout.leftPanelFrame.midY)
                 
+                // Верхняя панель
+                TopPanelView()
+                    .frame(width: layout.boardFrame.width,
+                           height: layout.boardFrame.height / 8)
+                    .position(x: layout.boardFrame.midX,
+                              y: layout.boardFrame.minY - (layout.boardFrame.height / 16))
+                
                 // Доска
                 BoardView()
                     .frame(width: layout.boardFrame.width,
