@@ -13,44 +13,36 @@ struct TopPanelView: View {
             let panelHeight = geometry.size.height
 
             ZStack {
-                Color.clear // Прозрачный фон панели
+                Color.clear // фон без обводки
 
                 let cellWidth = panelWidth
                 let cellH = panelHeight
 
-                // Кнопка 1.1
-                Button(action: {
-                    // обработка кнопки 1.1
-                }) {
+                // кнопка 1.1
+                Button(action: {}) {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(buttonColors[0])
-                        .frame(width: 0.6 * cellH * 1.2 * 1.3, height: 0.3 * cellH * 1.3) // увеличено на 30%
                         .overlay(
                             Image(systemName: "arrow.left")
                                 .foregroundColor(.white)
                         )
-                        .compositingGroup()
-                        .drawingGroup()
+                        .frame(width: 0.6 * cellH * 1.3, height: 0.3 * cellH * 1.3)
                 }
-                .buttonStyle(.plain)
-                .position(x: cellWidth * 0.25, y: cellH * 0.5)
+                .buttonStyle(PlainButtonStyle()) // убирает стандартную подсветку/обводку
+                .position(x: cellWidth * 0.35, y: cellH * 0.5) // ближе к центру
 
-                // Кнопка 1.2
-                Button(action: {
-                    // обработка кнопки 1.2
-                }) {
+                // кнопка 1.2
+                Button(action: {}) {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(buttonColors[1])
-                        .frame(width: 0.6 * cellH * 1.2 * 1.3, height: 0.3 * cellH * 1.3) // увеличено на 30%
                         .overlay(
                             Image(systemName: "arrow.right")
                                 .foregroundColor(.white)
                         )
-                        .compositingGroup()
-                        .drawingGroup()
+                        .frame(width: 0.6 * cellH * 1.3, height: 0.3 * cellH * 1.3)
                 }
-                .buttonStyle(.plain)
-                .position(x: cellWidth * 0.75, y: cellH * 0.5)
+                .buttonStyle(PlainButtonStyle())
+                .position(x: cellWidth * 0.65, y: cellH * 0.5)
             }
         }
     }
