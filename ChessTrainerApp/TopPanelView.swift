@@ -3,8 +3,8 @@ import SwiftUI
 struct TopPanelView: View {
     // Цвета кнопок можно менять здесь
     @State private var buttonColors: [Color] = [
-        Color(red: 86/255, green: 177/255, blue: 193/255),
-        Color(red: 86/255, green: 177/255, blue: 193/255)
+        Color(red: 64/255, green: 64/255, blue: 64/255),
+        Color(red: 64/255, green: 64/255, blue: 64/255)
     ]
     
     var body: some View {
