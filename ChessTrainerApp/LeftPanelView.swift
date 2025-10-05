@@ -56,7 +56,7 @@ struct LeftPanelView: View {
                         RoundedRectangle(cornerRadius: 6)
                             .fill(buttonColors[3])
                             .overlay(
-                                Image(systemName: "doc.plaintext")
+                                Image(systemName: "doc")
                                     .foregroundColor(.white)
                                     .font(.system(size: cellH * 0.5)) // менять размер здесь
                             )
