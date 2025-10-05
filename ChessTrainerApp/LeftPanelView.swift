@@ -22,6 +22,7 @@ struct LeftPanelView: View {
                             .overlay(
                                 Image(systemName: "flag")
                                     .foregroundColor(.white)
+                                    .font(.system(size: cellH * 0.5)) // менять размер здесь
                             )
                             .frame(width: 0.9 * cellH, height: 0.9 * cellH)
                     }
@@ -39,6 +40,7 @@ struct LeftPanelView: View {
                             .overlay(
                                 Image(systemName: "arrow.triangle.2.circlepath")
                                     .foregroundColor(.white)
+                                    .font(.system(size: cellH * 0.5)) // менять размер здесь
                             )
                             .frame(width: 0.9 * cellH, height: 0.9 * cellH)
                     }
@@ -56,6 +58,7 @@ struct LeftPanelView: View {
                             .overlay(
                                 Image(systemName: "doc.plaintext")
                                     .foregroundColor(.white)
+                                    .font(.system(size: cellH * 0.5)) // менять размер здесь
                             )
                             .frame(width: 0.9 * cellH, height: 0.9 * cellH)
                     }
@@ -73,6 +76,7 @@ struct LeftPanelView: View {
                             .overlay(
                                 Image(systemName: "eraser")
                                     .foregroundColor(.white)
+                                    .font(.system(size: cellH * 0.5)) // менять размер здесь
                             )
                             .frame(width: 0.9 * cellH, height: 0.9 * cellH)
                     }
@@ -90,6 +94,7 @@ struct LeftPanelView: View {
                             .overlay(
                                 Image(systemName: "triangle.fill")
                                     .foregroundColor(.white)
+                                    .font(.system(size: cellH * 0.5)) // менять размер здесь
                             )
                             .frame(width: 0.9 * cellH, height: 0.9 * cellH)
                     }
@@ -107,7 +112,7 @@ struct LeftPanelView: View {
                             .overlay(
                                 Text("Fen-c")
                                     .foregroundColor(.white)
-                                    .font(.system(size: 14, weight: .bold))
+                                    .font(.system(size: cellH * 0.30, weight: .bold)) // менять размер здесь
                             )
                             .frame(width: 0.9 * cellH, height: 0.9 * cellH)
                     }
@@ -125,7 +130,7 @@ struct LeftPanelView: View {
                             .overlay(
                                 Text("Fen-v")
                                     .foregroundColor(.white)
-                                    .font(.system(size: 14, weight: .bold))
+                                    .font(.system(size: cellH * 0.30, weight: .bold)) // менять размер здесь
                             )
                             .frame(width: 0.9 * cellH, height: 0.9 * cellH)
                     }
@@ -143,6 +148,7 @@ struct LeftPanelView: View {
                             .overlay(
                                 Image(systemName: "gearshape")
                                     .foregroundColor(.white)
+                                    .font(.system(size: cellH * 0.5)) // менять размер здесь
                             )
                             .frame(width: 0.9 * cellH, height: 0.9 * cellH)
                     }
