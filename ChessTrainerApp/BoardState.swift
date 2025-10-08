@@ -35,7 +35,6 @@ extension ChessPiece {
 }
 
 final class BoardState: ObservableObject {
-    // Двумерный массив 8×8, каждая клетка может быть пустой или содержать фигуру
     @Published var board: [[ChessPiece?]] = Array(
         repeating: Array(repeating: nil, count: 8),
         count: 8
@@ -45,56 +44,52 @@ final class BoardState: ObservableObject {
         resetBoard()
     }
 
-    /// Устанавливает стандартную начальную расстановку фигур
+    /// Устанавливает начальную расстановку:
+    /// белые — внизу (board[0], board[1]), чёрные — вверху (board[6], board[7])
     func resetBoard() {
         board = Array(repeating: Array(repeating: nil, count: 8), count: 8)
 
-        // Пешки
+        // Белые пешки (внизу)
         for i in 0..<8 {
-            board[1][i] = .blackPawn
-            board[6][i] = .whitePawn
+            board[1][i] = .whitePawn
         }
 
-        // Ладьи
-        board[0][0] = .blackRook
-        board[0][7] = .blackRook
-        board[7][0] = .whiteRook
-        board[7][7] = .whiteRook
+        // Чёрные пешки (вверху)
+        for i in 0..<8 {
+            board[6][i] = .blackPawn
+        }
 
-        // Кони
-        board[0][1] = .blackKnight
-        board[0][6] = .blackKnight
-        board[7][1] = .whiteKnight
-        board[7][6] = .whiteKnight
+        // Белые фигуры (нижняя линия — board[0])
+        board[0][0] = .whiteRook
+        board[0][7] = .whiteRook
+        board[0][1] = .whiteKnight
+        board[0][6] = .whiteKnight
+        board[0][2] = .whiteBishop
+        board[0][5] = .whiteBishop
+        board[0][3] = .whiteQueen
+        board[0][4] = .whiteKing
 
-        // Слоны
-        board[0][2] = .blackBishop
-        board[0][5] = .blackBishop
-        board[7][2] = .whiteBishop
-        board[7][5] = .whiteBishop
-
-        // Ферзи
-        board[0][3] = .blackQueen
-        board[7][3] = .whiteQueen
-
-        // Короли
-        board[0][4] = .blackKing
-        board[7][4] = .whiteKing
+        // Чёрные фигуры (верхняя линия — board[7])
+        board[7][0] = .blackRook
+        board[7][7] = .blackRook
+        board[7][1] = .blackKnight
+        board[7][6] = .blackKnight
+        board[7][2] = .blackBishop
+        board[7][5] = .blackBishop
+        board[7][3] = .blackQueen
+        board[7][4] = .blackKing
     }
 
-    /// Получить фигуру по координатам (row, col)
     func pieceAt(row: Int, col: Int) -> ChessPiece? {
         guard row >= 0, row < 8, col >= 0, col < 8 else { return nil }
         return board[row][col]
     }
 
-    /// Установить фигуру по координатам (row, col)
     func setPiece(_ piece: ChessPiece?, at row: Int, col: Int) {
         guard row >= 0, row < 8, col >= 0, col < 8 else { return }
         board[row][col] = piece
     }
 
-    /// Очистить доску
     func clearBoard() {
         board = Array(repeating: Array(repeating: nil, count: 8), count: 8)
     }
