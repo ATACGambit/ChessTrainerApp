@@ -31,8 +31,8 @@ struct BoardContainer: View {
                     .position(x: layout.boardFrame.midX,
                               y: layout.boardFrame.midY)
                 
-                // Правая панель
-                RightPanelView()
+                // Правая панель — передаём размер клетки доски
+                RightPanelView(boardCellSize: layout.cellSize)
                     .frame(width: layout.rightPanelFrame.width,
                            height: layout.rightPanelFrame.height)
                     .position(x: layout.rightPanelFrame.midX,

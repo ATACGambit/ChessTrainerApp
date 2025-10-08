@@ -3,9 +3,8 @@ import SwiftUI
 struct RightPanelView: View {
     let rows = 8
     let columns = 2
-
-    // Массив названий файлов изображений для каждой ячейки
-    let imageNames: [String] = [
+    let boardCellSize: CGFloat // размер клетки доски
+    let imageNames = [
         "white_pawn", "black_pawn",
         "white_knight", "black_knight",
         "white_bishop", "black_bishop",
@@ -15,17 +14,15 @@ struct RightPanelView: View {
         "white_circle", "black_circle",
         "mine", "gift"
     ]
-
+    
     var body: some View {
         GeometryReader { geometry in
             let cellWidth = geometry.size.width / CGFloat(columns)
             let cellHeight = geometry.size.height / CGFloat(rows)
 
             ZStack {
-                // Внешний контур панели
                 Rectangle()
-                    .stroke(Color.black, lineWidth: 1)
-                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .stroke(Color.black, lineWidth: 2) // внешний контур панели
 
                 VStack(spacing: 0) {
                     ForEach(0..<rows, id: \.self) { row in
@@ -36,11 +33,11 @@ struct RightPanelView: View {
                                     Image(imageNames[index])
                                         .resizable()
                                         .scaledToFit()
+                                        .frame(
+                                            width: boardCellSize * 0.9,
+                                            height: boardCellSize * 0.9
+                                        )
                                         .frame(width: cellWidth, height: cellHeight)
-                                        .onTapGesture {
-                                            print("Tapped \(imageNames[index])")
-                                            // Здесь можно передавать выбранную фигуру в BoardState
-                                        }
                                 } else {
                                     Color.clear
                                         .frame(width: cellWidth, height: cellHeight)
