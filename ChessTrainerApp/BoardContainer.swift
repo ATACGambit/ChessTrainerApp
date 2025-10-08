@@ -25,7 +25,7 @@ struct BoardContainer: View {
                               y: layout.boardFrame.minY - (layout.boardFrame.height / 16))
                 
                 // Доска
-                BoardView()
+                BoardView(boardState: boardState)
                     .frame(width: layout.boardFrame.width,
                            height: layout.boardFrame.height)
                     .position(x: layout.boardFrame.midX,
