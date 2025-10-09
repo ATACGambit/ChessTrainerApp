@@ -7,6 +7,11 @@ struct BoardView: View {
     private let rows = Array(1...8).reversed()
     private let columns = Array(1...8)
 
+    // Drag state: идентификация по координатам стартовой клетки
+    @State private var startRow: Int? = nil
+    @State private var startCol: Int? = nil
+    @State private var dragOffset: CGSize = .zero
+
     var body: some View {
         GeometryReader { geometry in
             let size = min(geometry.size.width, geometry.size.height)
@@ -21,12 +26,12 @@ struct BoardView: View {
                     .fill(Color(red: 64/255, green: 64/255, blue: 64/255))
                     .frame(width: size, height: size)
 
-                // сетка (вынесена в отдельную функцию)
+                // сетка
                 boardGrid(cellSize: cellSize)
                     .frame(width: cellSize * 8, height: cellSize * 8)
                     .position(x: size / 2, y: size / 2)
 
-                // координаты (в одном ZStack)
+                // координаты
                 coordinatesOverlay(size: size, borderWidth: borderWidth, cellSize: cellSize)
             }
             .frame(width: size, height: size)
@@ -46,17 +51,65 @@ struct BoardView: View {
                                       : Color(red: 236/255, green: 218/255, blue: 185/255))
                                 .frame(width: cellSize, height: cellSize)
 
+                            // обычная фигура (скрывается если это та, которую тянут)
                             if let piece = boardState.board[row - 1][col - 1] {
                                 Image(piece.imageName)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: cellSize * 0.9, height: cellSize * 0.9)
+                                    .opacity((startRow == row && startCol == col) ? 0.0 : 1.0)
+                                    .highPriorityGesture(dragGesture(forRow: row, col: col, cellSize: cellSize))
+                            }
+
+                            // плавающая копия той фигуры, которую тянут (показывается поверх)
+                            if startRow == row && startCol == col, let piece = boardState.board[row - 1][col - 1] {
+                                Image(piece.imageName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: cellSize * 0.9, height: cellSize * 0.9)
+                                    .offset(dragOffset)
+                                    .zIndex(1)
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    // DragGesture с округлением финального смещения; старт — сохраняем координаты старта
+    private func dragGesture(forRow row: Int, col: Int, cellSize: CGFloat) -> some Gesture {
+        DragGesture()
+            .onChanged { value in
+                if startRow == nil {
+                    startRow = row
+                    startCol = col
+                }
+                dragOffset = value.translation
+            }
+            .onEnded { value in
+                guard let sr = startRow, let sc = startCol else {
+                    resetDrag()
+                    return
+                }
+
+                // используем округление — тогда 1 клетка = ~1 cellSize
+                let dx = Int((value.translation.width / cellSize).rounded())
+                let dy = Int((value.translation.height / cellSize).rounded())
+
+                let targetRow = sr - dy
+                let targetCol = sc + dx
+
+                boardState.movePiece(fromRow: sr, fromCol: sc, toRow: targetRow, toCol: targetCol)
+
+                resetDrag()
+            }
+    }
+
+    private func resetDrag() {
+        startRow = nil
+        startCol = nil
+        dragOffset = .zero
     }
 
     private func coordinatesOverlay(size: CGFloat, borderWidth: CGFloat, cellSize: CGFloat) -> some View {
