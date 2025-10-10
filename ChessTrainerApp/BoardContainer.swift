@@ -31,12 +31,13 @@ struct BoardContainer: View {
                     .position(x: layout.boardFrame.midX,
                               y: layout.boardFrame.midY)
                 
-                // Правая панель — передаём размер клетки доски
-                RightPanelView(boardCellSize: layout.cellSize)
+                // Правая панель — передаём boardState и размер клетки
+                RightPanelView(boardState: boardState, boardCellSize: layout.cellSize)
                     .frame(width: layout.rightPanelFrame.width,
                            height: layout.rightPanelFrame.height)
                     .position(x: layout.rightPanelFrame.midX,
                               y: layout.rightPanelFrame.midY)
+
             }
         }
     }

@@ -1,3 +1,4 @@
+// BoardState.swift
 import SwiftUI
 
 enum ChessPiece {
@@ -35,10 +36,14 @@ extension ChessPiece {
 }
 
 final class BoardState: ObservableObject {
+    // 0-based storage: board[0][0] = lower-left (rank 1, file a) per your layout choice
     @Published var board: [[ChessPiece?]] = Array(
         repeating: Array(repeating: nil, count: 8),
         count: 8
     )
+
+    // выбранная фигура из правой панели (ставится по клику на клетку)
+    @Published var selectedPanelPiece: ChessPiece? = nil
 
     init() {
         resetBoard()
@@ -68,18 +73,27 @@ final class BoardState: ObservableObject {
         board = Array(repeating: Array(repeating: nil, count: 8), count: 8)
     }
 
-    // MARK: - Утилиты (1-based внешне)
+    // MARK: - Accessors (1-based convenience)
     func pieceAt(row: Int, col: Int) -> ChessPiece? {
+        // 1..8 expected
         guard (1...8).contains(row), (1...8).contains(col) else { return nil }
         return board[row - 1][col - 1]
     }
 
+    /// 1-based setter (compatible with older code)
     func setPiece(_ piece: ChessPiece?, at row: Int, col: Int) {
         guard (1...8).contains(row), (1...8).contains(col) else { return }
         board[row - 1][col - 1] = piece
     }
 
+    /// 0-based setter (convenient for some callers)
+    func setPiece(atRow row: Int, col: Int, piece: ChessPiece) {
+        guard (0..<8).contains(row), (0..<8).contains(col) else { return }
+        board[row][col] = piece
+    }
+
     func removePiece(at row: Int, col: Int) {
+        // 1-based
         setPiece(nil, at: row, col: col)
     }
 

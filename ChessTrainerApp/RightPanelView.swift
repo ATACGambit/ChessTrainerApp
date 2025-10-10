@@ -1,43 +1,59 @@
+// RightPanelView.swift
 import SwiftUI
 
 struct RightPanelView: View {
-    let rows = 8
-    let columns = 2
-    let boardCellSize: CGFloat // размер клетки доски
-    let imageNames = [
-        "white_pawn", "black_pawn",
-        "white_knight", "black_knight",
-        "white_bishop", "black_bishop",
-        "white_rook", "black_rook",
-        "white_queen", "black_queen",
-        "white_king", "black_king",
-        "white_circle", "black_circle",
-        "mine", "gift"
+    @ObservedObject var boardState: BoardState
+    let boardCellSize: CGFloat   // реальный размер клетки доски (передаётся извне)
+
+    private let pieces: [ChessPiece] = [
+        .whitePawn,  .blackPawn,
+        .whiteKnight, .blackKnight,
+        .whiteBishop, .blackBishop,
+        .whiteRook,  .blackRook,
+        .whiteQueen, .blackQueen,
+        .whiteKing,  .blackKing,
+        .whiteCircle, .blackCircle,
+        .mine, .gift
     ]
-    
+
+    private let rows = 8
+    private let columns = 2
+
     var body: some View {
         GeometryReader { geometry in
             let cellWidth = geometry.size.width / CGFloat(columns)
             let cellHeight = geometry.size.height / CGFloat(rows)
+            let imageScale: CGFloat = 0.9
+            let imageSize = boardCellSize * imageScale
 
             ZStack {
+                // внешний контур панели
                 Rectangle()
-                    .stroke(Color.black, lineWidth: 2) // внешний контур панели
+                    .stroke(Color.black, lineWidth: 2)
 
                 VStack(spacing: 0) {
                     ForEach(0..<rows, id: \.self) { row in
                         HStack(spacing: 0) {
                             ForEach(0..<columns, id: \.self) { col in
                                 let index = row * columns + col
-                                if index < imageNames.count {
-                                    Image(imageNames[index])
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(
-                                            width: boardCellSize * 0.9,
-                                            height: boardCellSize * 0.9
-                                        )
-                                        .frame(width: cellWidth, height: cellHeight)
+                                if index < pieces.count {
+                                    let piece = pieces[index]
+                                    ZStack {
+                                        // прозрачный фон для кликабельности
+                                        Color.clear
+                                            .frame(width: cellWidth, height: cellHeight)
+
+                                        Image(piece.imageName)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: imageSize, height: imageSize)
+                                            .contentShape(Rectangle())
+                                    }
+                                    .frame(width: cellWidth, height: cellHeight)
+                                    .onTapGesture {
+                                        // выбрать фигуру из панели (ставится при клике по доске)
+                                        boardState.selectedPanelPiece = piece
+                                    }
                                 } else {
                                     Color.clear
                                         .frame(width: cellWidth, height: cellHeight)
